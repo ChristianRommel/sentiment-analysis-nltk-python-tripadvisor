@@ -19,6 +19,11 @@ for s in obj1:
 	stopwords = re.escape(stopwords)
 	stops.append(stopwords)
 obj2.close
+
+
+
+#Expressions
+#rgx_list = ['\.', ',', ';', '\(', '\)', ':', '\.\.\.', '!']
 #Open a csv
 with open('tripadvisor_dieburg.csv') as file: 	
 	reader = csv.DictReader(file)
