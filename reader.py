@@ -5,20 +5,18 @@ from array import *
 punct = []
 stops = []
 ntitle = []
-obj1 = open('wordlist/punctuation.txt', 'r')
-for s in obj1:
-	#Lowercase words and strip newlines ans whitespaces
-	punctuations = s.rstrip()
-	punctuations = re.escape(punctuations)
-	punct.append(punctuations)
-obj1.close
-obj2 = open('wordlist/stopwords.txt', 'r')
-for s in obj1:
-	#Lowercase words and strip newlines ans whitespaces
-	stopwords = s.lower().rstrip()
-	stopwords = re.escape(stopwords)
-	stops.append(stopwords)
-obj2.close
+with open('wordlist/punctuation.txt', 'r') as obj1:
+	for s in obj1:
+		#Lowercase words and strip newlines ans whitespaces
+		punctuations = s.rstrip()
+		punctuations = re.escape(punctuations)
+		punct.append(punctuations)
+with open('wordlist/stopwords.txt', 'r') as obj2:
+	for s in obj2:
+		#Lowercase words and strip newlines ans whitespaces
+		stopwords = s.lower().rstrip()
+		stopwords = re.escape(stopwords)
+		stops.append(stopwords)
 #Open a csv to retrieve the reviews
 with open('tripadvisor_dieburg.csv') as file:
 	reader = csv.DictReader(file)
@@ -33,9 +31,8 @@ with open('tripadvisor_dieburg.csv') as file:
 			rgx = re.compile(patter)
 			new_title = re.sub(rgx, '', new_title)
 		#Tokenizer
-		nltk.word_tokenize(new_title)
+		new_title = nltk.word_tokenize(new_title)
 		#Append to the array
 		ntitle.append(new_title)
 #Print the new title
-for n in ntitle:
-	print n
+#print ntitle[0][1]
