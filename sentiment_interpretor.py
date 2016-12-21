@@ -33,8 +33,8 @@ with open ('wordlist/increaser.txt', 'r') as obj4:
         inc = re.compile(inc)
         increaser.append(inc)
 #set score variables
-sentiment_score = 0
-control = 0
+sentiment_score = 0 # for every title
+control = 0 # for every token in the title
 for n in range(len(ntitle)):
     	for t in ntitle[n]:
             ti = ntitle[n].index(t)
@@ -42,12 +42,55 @@ for n in range(len(ntitle)):
             for p in poswords:
                 match = re.search(p, t)
                 if match:
-                    print match.group(), 'positiv word found on position', n, ti
+                    print match.group(), 'positiv at', n, ti
                     # print ntitle[n][ti]
+                    control += 1
+                    sentiment_score += control
+                    if ti != 0:
+                        for incr in increaser:
+                            inc_match = re.search(incr, ntitle[n][ti-1])
+                            if inc_match:
+                                print "Increaser at ", n, ti-1, ntitle[n][ti-1]
+                                control *= 2-1
+                                sentiment_score += control
+                                control = 0
+                        for ne in negator:
+                            ne_match = re.search(ne, ntitle[n][ti-1])
+                            if ne_match:
+                                print "Negator at ", n, ti-1, ntitle[n][ti-1]
+                                control *= -2-1
+                                sentiment_score += control
+                                control = 0
+                else:
+                    control = 0
             #Check the negativ words
             for nw in negwords:
                 match = re.search(nw, t)
                 if match:
-                    print match.group(), 'negativ word found on position', n, ti
+                    print match.group(), 'negativ at', n, ti
                     # print ntitle[n][ti]
+                    control -= 1
+                    sentiment_score += control
+                    if ti != 0:
+                        for incr in increaser:
+                            inc_match = re.search(incr, ntitle[n][ti-1])
+                            if inc_match:
+                                print "Increaser at ", n, ti-1, ntitle[n][ti-1]
+                                control *= 2+1
+                                sentiment_score += control
+                                control = 0
+                        for ne in negator:
+                            ne_match = re.search(ne, ntitle[n][ti-1])
+                            if ne_match:
+                                print "Negator at ", n, ti-1, ntitle[n][ti-1]
+                                control *= -2+1
+                                sentiment_score += control
+                                control = 0
+                else:
+                    control = 0
+        print "Sentiment Value", sentiment_score
+        print ntitle[n], len(ntitle[n]), "Tokens"
         print "{}{}".format(n, ".title was analysed\n\n")
+        sentiment_score = 0
+# print len(ntitle)
+# print ntitle[9]
