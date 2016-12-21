@@ -24,6 +24,7 @@ with open('tripadvisor_dieburg.csv') as file:
 	#Get the title and replace the expressions
 	for row in reader:
 		new_title = row['title'].lower()
+		#print new_title
 		for r in punct:
 			# r = re.compile(r)
 			new_title = re.sub(r, '', new_title)
@@ -36,5 +37,6 @@ with open('tripadvisor_dieburg.csv') as file:
 		#Append to the array
 		ntitle.append(new_title)
 #Print the new title
-#print ntitle[0][1]
+# print ntitle
+# print ntitle[0][1]
 #re.purge()
