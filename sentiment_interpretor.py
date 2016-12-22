@@ -1,8 +1,9 @@
 import re
 from array import *
 import reader
-#set the array for the interpretor
+#set the arrays for the interpretor
 ntitle = reader.ntitle
+ncontent = reader.ncontent
 #set the wordlists and save them to a new list
 poswords = []
 negwords = []
@@ -94,3 +95,4 @@ for n in range(len(ntitle)):
         sentiment_score = 0
 # print len(ntitle)
 # print ntitle[9]
+#print ncontent
