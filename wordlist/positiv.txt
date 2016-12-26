@@ -277,6 +277,10 @@ beachtenswerte
 beachtenswerter
 beachtenswertes
 beeindruckend
+<<<<<<< HEAD
+bemerkenswert
+empfehlenswert
+=======
 beeindruckende
 beeindruckender
 beeindruckendes
@@ -314,3 +318,4 @@ fein
 feine
 feiner
 feines
+>>>>>>> master
