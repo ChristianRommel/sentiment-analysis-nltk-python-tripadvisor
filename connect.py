@@ -1,9 +1,9 @@
 import pymongo
 from pymongo import MongoClient
+from datetime import datetime
 client = MongoClient('mongodb://localhost:27017/')
 db = client.sentimentdb
 
-from datetime import datetime
 result = db.restaurants.insert_one(
     {
         "address": {
@@ -30,4 +30,3 @@ result = db.restaurants.insert_one(
         "restaurant_id": "41704620"
     }
 )
-result.inserted_id
