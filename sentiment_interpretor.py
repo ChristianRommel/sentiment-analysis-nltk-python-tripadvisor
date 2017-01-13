@@ -17,14 +17,14 @@ with open ('wordlist/positiv.txt', 'r') as obj1:
     for w in obj1:
         pos = w.lower().rstrip()
         pos = re.escape(pos)
-        pos = re.compile("{}{}{}".format("\\b", pos, "\\b"))
+        pos = re.compile("{}{}{}".format("\\b", pos, "[a-z]*"))
         # pos = re.compile(pos)
         poswords.append(pos)
 with open ('wordlist/negativ.txt', 'r') as obj2:
     for w in obj2:
         neg = w.lower().rstrip()
         neg = re.escape(neg)
-        neg = re.compile("{}{}{}".format("\\b", neg, "\\b"))
+        neg = re.compile("{}{}{}".format("\\b", neg, "[a-z]*"))
         # neg = re.compile(neg)
         negwords.append(neg)
 with open ('wordlist/negator.txt', 'r') as obj3:
