@@ -2,6 +2,7 @@ import re
 import time
 from pymongo import InsertOne, DeleteOne, ReplaceOne
 from array import *
+from mongodb_connect import db
 import reader
 #set the arrays for the interpretor
 ntitle = reader.ntitle
@@ -122,6 +123,7 @@ db[col].insert_many(
         'content': i[1],
         'city': i[2],
         'hotel_name': i[3],
+        'review_stars': i[4],
     }
     for i in collection
 )
