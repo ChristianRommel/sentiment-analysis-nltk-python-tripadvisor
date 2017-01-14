@@ -1,18 +1,21 @@
 import re
 import time
+from pymongo import InsertOne, DeleteOne, ReplaceOne
 from array import *
-from connect import db, sentiment_title
+from mongodb_connect import db
 import reader
 #set the arrays for the interpretor
 ntitle = reader.ntitle
 ncontent = reader.ncontent
+collection = reader.collection
 #set the timestamp
-time = time.strftime("%d.%m.%Y %H:%M:%S - ")
+time = time.strftime("%d.%m.%Y %H:%M:%S")
 #set the wordlists and save them to a new list
 poswords = []
 negwords = []
 negator = []
 increaser = []
+results = []
 with open ('wordlist/positiv.txt', 'r') as obj1:
     for w in obj1:
         pos = w.lower().rstrip()
@@ -106,9 +109,23 @@ for n in range(len(ntitle)):
         print "Sentiment Value", sentiment_score
         print ntitle[n], len(ntitle[n]), "Tokens"
         print sentieval
-        print "{}{}{}".format(time, n, ".title was analysed\n\n")
+        print "{}{}{}{}".format(time, " - ", n, ".title was analysed\n\n")
         # sentiment_title(time, db, ntitle[n], n, sentiment_score, sentieval)
         sentiment_score = 0
 # print len(ntitle)
 # print ntitle[9]
 #print ncontent
+col = time
+# db[col].insert_many([{'titles': i} for i in collection]) works!!!
+db[col].insert_many(
+    {
+        'title': i[0],
+        'content': i[1],
+        'city': i[2],
+        'hotel_name': i[3],
+        'review_stars': i[4],
+    }
+    for i in collection
+)
+#print results
+#print collection[0]
