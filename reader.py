@@ -6,6 +6,7 @@ punct = []
 stops = []
 ntitle = []
 ncontent= []
+collection = []
 with open('wordlist/punctuation.txt', 'r') as obj1:
 	for s in obj1:
 		punctuations = s.rstrip()
@@ -24,6 +25,7 @@ with open('tripadvisor_dieburg.csv') as file:
 	reader = csv.DictReader(file)
 	#Get the title and replace the expressions
 	for row in reader:
+		review_stars = row['review_stars'].split("von")[0]
 		new_title = row['title'].lower()
 		new_content = row['content'].lower()
 		#print new_title
@@ -42,8 +44,18 @@ with open('tripadvisor_dieburg.csv') as file:
 		#Append to the array
 		ntitle.append(new_title)
 		ncontent.append(new_content)
+		collection.append(
+		[
+			row['title'],
+			row['content'],
+			row['city'],
+			row['hotel_name'],
+			review_stars
+		])
 #Print the new title
-# print ntitle
+#print ntitle
 # print ntitle[0][1]
 #print ncontent
 #re.purge()
+#print collection
+# print collection[0][4]
