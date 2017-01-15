@@ -43,8 +43,12 @@ with open ('wordlist/increaser.txt', 'r') as obj4:
         inc = re.compile(inc)
         increaser.append(inc)
 #set score variables
-sentiment_score = 0 # for every title
-control = 0 # for every token in the title
+sentiment_score = 0 # for every review
+title_score = 0 # for every title
+control_title = 0 # for every token in the title
+content_score = 0 # for every comment
+control_content = 0 #for ervery token in content
+### Title Evaluation ###
 for n in range(len(ntitle)):
     	for t in ntitle[n]:
             ti = ntitle[n].index(t)
@@ -54,64 +58,67 @@ for n in range(len(ntitle)):
                 if match:
                     print match.group(), 'positiv at', n, ti
                     # print ntitle[n][ti]
-                    control += 1
-                    sentiment_score += control
+                    control_title += 1
+                    title_score += control_title
                     if ti != 0:
                         for incr in increaser:
                             inc_match = re.search(incr, ntitle[n][ti-1])
                             if inc_match:
                                 print "Increaser at ", n, ti-1, ntitle[n][ti-1]
-                                control *= 2-1
-                                sentiment_score += control
-                                control = 0
+                                control_title *= 2-1
+                                title_score += control_title
+                                control_title = 0
                         for ne in negator:
                             ne_match = re.search(ne, ntitle[n][ti-1])
                             if ne_match:
                                 print "Negator at ", n, ti-1, ntitle[n][ti-1]
-                                control *= -2-1
-                                sentiment_score += control
-                                control = 0
+                                control_title *= -2-1
+                                title_score += control_title
+                                control_title = 0
                 else:
-                    control = 0
+                    control_title = 0
             #Check the negativ words
             for nw in negwords:
                 match = re.search(nw, t)
                 if match:
                     print match.group(), 'negativ at', n, ti
                     # print ntitle[n][ti]
-                    control -= 1
-                    sentiment_score += control
+                    control_title -= 1
+                    title_score += control_title
                     if ti != 0:
                         for incr in increaser:
                             inc_match = re.search(incr, ntitle[n][ti-1])
                             if inc_match:
                                 print "Increaser at ", n, ti-1, ntitle[n][ti-1]
-                                control *= 2+1
-                                sentiment_score += control
-                                control = 0
+                                control_title *= 2+1
+                                title_score += control_title
+                                control_title = 0
                         for ne in negator:
                             ne_match = re.search(ne, ntitle[n][ti-1])
                             if ne_match:
                                 print "Negator at ", n, ti-1, ntitle[n][ti-1]
-                                control *= -2+1
-                                sentiment_score += control
-                                control = 0
+                                control_title *= -2+1
+                                title_score += control_title
+                                control_title = 0
                 else:
-                    control = 0
-        if sentiment_score > 0:
-            sentieval = "positiv"
-        elif sentiment_score == 0:
-            sentieval = "neutral"
-        elif sentiment_score < 0:
-            sentieval = "negativ"
+                    control_title = 0
+        if title_score > 0:
+            title_eval = "positiv"
+        elif title_score == 0:
+            title_eval = "neutral"
+        elif title_score < 0:
+            title_eval = "negativ"
         else:
-            print "No sentiment_score is given!"
-        print "Sentiment Value", sentiment_score
+            print "No title_score is given!"
+        print "Sentiment Value", title_score
         print ntitle[n], len(ntitle[n]), "Tokens"
-        print sentieval
+        print title_eval
         print "{}{}{}{}".format(time, " - ", n, ".title was analysed\n\n")
-        # sentiment_title(time, db, ntitle[n], n, sentiment_score, sentieval)
-        sentiment_score = 0
+        # sentiment_title(time, db, ntitle[n], n, title_score, title_eval)
+        collection[n].insert(len(collection[n]),title_score)
+        collection[n].insert(len(collection[n]), title_eval)
+        title_score = 0
+        #print collection[n]
 # print len(ntitle)
 # print ntitle[9]
 #print ncontent
@@ -124,6 +131,8 @@ db[col].insert_many(
         'city': i[2],
         'hotel_name': i[3],
         'review_stars': i[4],
+        'title_score': i[5],
+        'title_eval': i[6]
     }
     for i in collection
 )
