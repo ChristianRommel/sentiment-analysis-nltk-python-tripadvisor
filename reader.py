@@ -27,7 +27,7 @@ with open('wordlist/stopwords.txt', 'r') as obj2:
 with open('tripadvisor_dieburg.csv') as file:
 	reader = csv.DictReader(file)
 	#Get the title and content and replace the expressions
-	#Starrating [review_stars] and ID's [_id]
+	#Starrating [review_stars] and  ID's [_id]
 	for row in reader:
 		review_stars = row['review_stars'].split("von")[0]
 		new_title = row['title'].lower()
@@ -54,6 +54,7 @@ with open('tripadvisor_dieburg.csv') as file:
 			_id,
 			row['title'],
 			row['content'],
+			len(row['content']),
 			row['city'],
 			row['hotel_name'],
 			review_stars,
