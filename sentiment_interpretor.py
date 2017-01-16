@@ -118,25 +118,92 @@ for n in range(len(ntitle)):
         collection[n].insert(len(collection[n]),title_score)
         collection[n].insert(len(collection[n]), title_eval)
         title_score = 0
-        #print collection[n]
-# print len(ntitle)
-# print ntitle[9]
-#print ncontent
+### Content Evaluation ###
+for n in range(len(ncontent)):
+    	for t in ncontent[n]:
+            ti = ncontent[n].index(t)
+            #Check the positiv words
+            for p in poswords:
+                match = re.search(p, t)
+                if match:
+                    print match.group(), 'positiv at', n, ti
+                    # print ntitle[n][ti]
+                    control_content += 1
+                    content_score += control_content
+                    if ti != 0:
+                        for incr in increaser:
+                            inc_match = re.search(incr, ncontent[n][ti-1])
+                            if inc_match:
+                                print "Increaser at ", n, ti-1, ncontent[n][ti-1]
+                                control_content *= 2-1
+                                content_score += control_content
+                                control_content = 0
+                        for ne in negator:
+                            ne_match = re.search(ne, ncontent[n][ti-1])
+                            if ne_match:
+                                print "Negator at ", n, ti-1, ncontent[n][ti-1]
+                                control_content *= -2-1
+                                content_score += control_content
+                                control_content = 0
+                else:
+                    control_content = 0
+            #Check the negativ words
+            for nw in negwords:
+                match = re.search(nw, t)
+                if match:
+                    print match.group(), 'negativ at', n, ti
+                    # print ntitle[n][ti]
+                    control_content -= 1
+                    content_score += control_content
+                    if ti != 0:
+                        for incr in increaser:
+                            inc_match = re.search(incr, ncontent[n][ti-1])
+                            if inc_match:
+                                print "Increaser at ", n, ti-1, ncontent[n][ti-1]
+                                control_content *= 2+1
+                                content_score += control_content
+                                control_content = 0
+                        for ne in negator:
+                            ne_match = re.search(ne, ncontent[n][ti-1])
+                            if ne_match:
+                                print "Negator at ", n, ti-1, ncontent[n][ti-1]
+                                control_content *= -2+1
+                                content_score += control_content
+                                control_content = 0
+                else:
+                    control_content = 0
+        if content_score > 0:
+            content_eval = "positiv"
+        elif content_score == 0:
+            content_eval = "neutral"
+        elif content_score < 0:
+            content_eval = "negativ"
+        else:
+            print "No content_score is given!"
+        print "Sentiment Value", content_score
+        print ncontent[n], len(ncontent[n]), "Tokens"
+        print content_eval
+        print "{}{}{}{}".format(time, " - ", n, ".content was analysed\n\n")
+        collection[n].insert(len(collection[n]),content_score)
+        collection[n].insert(len(collection[n]), content_eval)
+        content_score = 0
+### Set collection for MongoDB
 col = time
-# db[col].insert_many([{'titles': i} for i in collection]) works!!!
+# db[col].insert_many([{'x': i} for i in collection])
 db[col].insert_many(
     {
         "_id": i[0],
         'title': i[1],
         'content': i[2],
-        'city': i[3],
-        'hotel_name': i[4],
-        'review_stars': i[5],
-        'helpful_reader': i[6],
-        'title_score': i[7],
-        'title_eval': i[8]
+        'conten_lenght': i[3],
+        'city': i[4],
+        'hotel_name': i[5],
+        'review_stars': i[6],
+        'helpful_reader': i[7],
+        'title_score': i[8],
+        'title_eval': i[9],
+        'content_score': i[10],
+        'content_eval' : i[11]
     }
     for i in collection
 )
-#print results
-# print collection[0]
