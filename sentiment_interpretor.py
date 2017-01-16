@@ -126,15 +126,17 @@ col = time
 # db[col].insert_many([{'titles': i} for i in collection]) works!!!
 db[col].insert_many(
     {
-        'title': i[0],
-        'content': i[1],
-        'city': i[2],
-        'hotel_name': i[3],
-        'review_stars': i[4],
-        'title_score': i[5],
-        'title_eval': i[6]
+        "_id": i[0],
+        'title': i[1],
+        'content': i[2],
+        'city': i[3],
+        'hotel_name': i[4],
+        'review_stars': i[5],
+        'helpful_reader': i[6],
+        'title_score': i[7],
+        'title_eval': i[8]
     }
     for i in collection
 )
 #print results
-#print collection[0]
+# print collection[0]
