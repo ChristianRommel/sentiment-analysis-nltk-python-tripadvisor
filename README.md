@@ -14,6 +14,11 @@ We changed the spider request and did a item change. For a more specific request
 <kbd>scrapy crawl tripadvisor_more -a start_url="https://www.tripadvisor.de/Hotels-g2049630-Dieburg_Hesse-Hotels.html" -o dieburger-hotels.csv </kbd>
 <br>
 
+Needful python packages to install:
+- pymongo
+- nltk
+
+
 This repository is in progress! If you want to collaborate, please send a <a href="mailto:uenvert90@googlemail.com">e-mail</a>. 
 <br>
 [![pdf.jpg](https://s24.postimg.org/n2h6riy85/pdf.jpg)](https://postimg.org/image/4a5bny1tt/)
