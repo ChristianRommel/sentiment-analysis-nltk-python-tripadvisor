@@ -29,11 +29,13 @@ with open('tripadvisor_dieburg.csv') as file:
 	#Get the title and content and replace the expressions
 	#Starrating [review_stars] and  ID's [_id]
 	for row in reader:
+		#Starrating
 		review_stars = row['review_stars'].split("von")[0]
-		new_title = row['title'].lower()
-		new_content = row['content'].lower()
+		#ID Handling
 		_id += 1
 		#Regular Expression Handling
+		new_title = row['title'].lower()
+		new_content = row['content'].lower()
 		for r in punct:
 			# r = re.compile(r)
 			new_title = re.sub(r, '', new_title)
