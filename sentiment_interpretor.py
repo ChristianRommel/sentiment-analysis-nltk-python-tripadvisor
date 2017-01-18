@@ -3,6 +3,7 @@ import time
 from pymongo import InsertOne, DeleteOne, ReplaceOne
 from array import *
 from mongodb_connect import db
+from evaluation import sentieval
 import reader
 #set the arrays for the interpretor
 ntitle = reader.ntitle
@@ -43,7 +44,6 @@ with open ('wordlist/increaser.txt', 'r') as obj4:
         inc = re.compile(inc)
         increaser.append(inc)
 #set score variables
-sentiment_score = 0 # for every review
 title_score = 0 # for every title
 control_title = 0 # for every token in the title
 content_score = 0 # for every comment
@@ -102,6 +102,7 @@ for n in range(len(ntitle)):
                                 control_title = 0
                 else:
                     control_title = 0
+        # Title Evaluation
         if title_score > 0:
             title_eval = "positiv"
         elif title_score == 0:
@@ -110,11 +111,12 @@ for n in range(len(ntitle)):
             title_eval = "negativ"
         else:
             print "No title_score is given!"
+        # Resume
         print "Sentiment Value", title_score
         print ntitle[n], len(ntitle[n]), "Tokens"
         print title_eval
         print "{}{}{}{}".format(time, " - ", n, ".title was analysed\n\n")
-        # sentiment_title(time, db, ntitle[n], n, title_score, title_eval)
+        #Insert to collection
         collection[n].insert(len(collection[n]),title_score)
         collection[n].insert(len(collection[n]), title_eval)
         title_score = 0
@@ -127,7 +129,7 @@ for n in range(len(ncontent)):
                 match = re.search(p, t)
                 if match:
                     print match.group(), 'positiv at', n, ti
-                    # print ntitle[n][ti]
+                    # print ncontent[n][ti]
                     control_content += 1
                     content_score += control_content
                     if ti != 0:
@@ -152,7 +154,7 @@ for n in range(len(ncontent)):
                 match = re.search(nw, t)
                 if match:
                     print match.group(), 'negativ at', n, ti
-                    # print ntitle[n][ti]
+                    # print ncontent[n][ti]
                     control_content -= 1
                     content_score += control_content
                     if ti != 0:
@@ -172,6 +174,7 @@ for n in range(len(ncontent)):
                                 control_content = 0
                 else:
                     control_content = 0
+        # Content Evaluation
         if content_score > 0:
             content_eval = "positiv"
         elif content_score == 0:
@@ -180,13 +183,44 @@ for n in range(len(ncontent)):
             content_eval = "negativ"
         else:
             print "No content_score is given!"
+        # Resume
         print "Sentiment Value", content_score
         print ncontent[n], len(ncontent[n]), "Tokens"
         print content_eval
         print "{}{}{}{}".format(time, " - ", n, ".content was analysed\n\n")
+        #Insert to collection
         collection[n].insert(len(collection[n]),content_score)
-        collection[n].insert(len(collection[n]), content_eval)
+        collection[n].insert(len(collection[n]),content_eval)
         content_score = 0
+### Review Evaluation Stars, Title and Content ###
+for n in range(len(collection)):
+    title_score = collection[n][8]
+    content_score = collection[n][10]
+    review_stars = collection[n][6]
+    #Evaluation
+    review_score = title_score + content_score
+    if review_score > 0:
+        review_eval = "positiv"
+    elif review_score == 0:
+        review_eval = "neutral"
+    elif review_score < 0:
+        review_eval = "negativ"
+    else:
+        print "No review_score is given!"
+    #Evaluation review_stars
+    if review_stars > 3:
+        stars_eval = "positiv"
+    elif review_stars == 3:
+        stars_eval = "neutral"
+    elif review_stars < 3:
+        stars_eval = "negativ"
+    else:
+        print "No review_stars is given!"
+    #Insert to collection
+    collection[n].insert(len(collection[n]),review_score)
+    collection[n].insert(len(collection[n]),review_eval)
+    collection[n].insert(len(collection[n]),stars_eval)
+
 ### Set collection for MongoDB
 col = time
 # db[col].insert_many([{'x': i} for i in collection])
@@ -195,7 +229,7 @@ db[col].insert_many(
         "_id": i[0],
         'title': i[1],
         'content': i[2],
-        'conten_lenght': i[3],
+        'content_lenght': i[3],
         'city': i[4],
         'hotel_name': i[5],
         'review_stars': i[6],
@@ -203,7 +237,11 @@ db[col].insert_many(
         'title_score': i[8],
         'title_eval': i[9],
         'content_score': i[10],
-        'content_eval' : i[11]
+        'content_eval' : i[11],
+        'review_score': i[12],
+        'review_eval' : i[13],
+        'stars_eval' : i[14]
     }
     for i in collection
 )
+sentieval(collection)
