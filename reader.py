@@ -59,6 +59,6 @@ with open('tripadvisor_dieburg.csv') as file:
 			len(row['content']),
 			row['city'],
 			row['hotel_name'],
-			review_stars,
+			float(review_stars),
 			row['helpful_reader']
 		])

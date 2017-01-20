@@ -17,6 +17,7 @@
 # 'stars_eval' : i[14]
 ################################################################################
 from mongodb_connect import db
+import math
 def sentieval (db, col, collection, time):
     all_cases = len(collection)
     false_positiv = []
@@ -75,12 +76,15 @@ def sentieval (db, col, collection, time):
     #Positiv
     true_false_positiv = true_positiv_count + false_positiv_count
     positiv_accuracy = float(true_positiv_count) / true_false_positiv * 100
+    positiv_accuracy = round(positiv_accuracy, 2)
     #Neutral
     true_false_neutral = true_neutral_count + false_neutral_count
     neutral_accuracy = float(true_neutral_count) / true_false_neutral * 100
+    neutral_accuracy = round(neutral_accuracy, 2)
     #Negativ
     true_false_negativ = true_negativ_count + false_negativ_count
     negativ_accuracy = float(true_negativ_count) / true_false_negativ * 100
+    negativ_accuracy = round(negativ_accuracy, 2)
     #Insert the results to MongoDB
     ############################################################################
     db[col].insert_one(
