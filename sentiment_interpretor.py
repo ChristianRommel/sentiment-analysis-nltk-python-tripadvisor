@@ -222,9 +222,13 @@ for n in range(len(collection)):
     collection[n].insert(len(collection[n]),stars_eval)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ### Set collection for MongoDB
 col = time
 =======
+=======
+
+>>>>>>> refs/remotes/origin/Chris-new-stuff
 ### Set collections for MongoDB
 col = "{}{}".format("reviews ", time)
 col2 = "{}{}".format("evaluation ", time)
@@ -251,7 +255,11 @@ db[col].insert_many(
     for i in collection
 )
 <<<<<<< HEAD
+<<<<<<< HEAD
 sentieval(collection)
 =======
+=======
+
+>>>>>>> refs/remotes/origin/Chris-new-stuff
 sentieval(db, col2, collection, time)
 >>>>>>> refs/remotes/origin/Chris-new-stuff
