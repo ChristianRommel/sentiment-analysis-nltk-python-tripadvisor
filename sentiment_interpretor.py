@@ -221,6 +221,7 @@ for n in range(len(collection)):
     collection[n].insert(len(collection[n]),review_eval)
     collection[n].insert(len(collection[n]),stars_eval)
 
+
 ### Set collections for MongoDB
 col = "{}{}".format("reviews ", time)
 col2 = "{}{}".format("evaluation ", time)
@@ -245,4 +246,5 @@ db[col].insert_many(
     }
     for i in collection
 )
+
 sentieval(db, col2, collection, time)
