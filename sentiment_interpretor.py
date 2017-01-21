@@ -223,8 +223,17 @@ for n in range(len(collection)):
 
 
 ### Set collections for MongoDB
-col = "{}{}".format("reviews ", time)
-col2 = "{}{}".format("evaluation ", time)
+# col = "{}{}".format("reviews ", time)
+col = "reviews"
+# col2 = "{}{}".format("evaluation ", time)
+col2 = "evaluation"
+### Check for existing collections
+db_names = db.collection_names()
+if col in db_names:
+    db[col].drop()
+if col2 in db_names:
+    db[col2].drop()
+### Insert MongoDB
 # db[col].insert_many([{'x': i} for i in collection])
 db[col].insert_many(
     {
