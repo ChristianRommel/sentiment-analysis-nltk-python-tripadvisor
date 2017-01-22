@@ -41,7 +41,8 @@ def sentieval (db, col, collection, time):
         "content": collection[n][2],
         "title_eval": collection[n][11],
         "content_eval": collection[n][13],
-        "stars_eval": collection[n][14]
+        "stars_eval": collection[n][14],
+        "review_eval" : review_eval,
         }
         #Checking the cases
         if review_eval == stars_eval and review_score > 0 :
@@ -89,20 +90,22 @@ def sentieval (db, col, collection, time):
     ############################################################################
     db[col].insert_one(
         {
-            "true positiv count": true_positiv_count,
-            "true neutral count": true_neutral_count,
-            "true negativ count": true_negativ_count,
-            "false positiv count": false_positiv_count,
-            "false neutral count": false_neutral_count,
-            "false negativ count": false_negativ_count,
-            "the total accuracy": total_accuracy,
-            "the positiv accuracy": positiv_accuracy,
-            "the neutral accuracy": neutral_accuracy,
-            "the negativ accuracy": negativ_accuracy,
-            "true false": false_positiv,
-            "neutral false": false_neutral,
-            "negativ false": false_negativ,
-            "timestamp" : time
+            "true_positiv_count": true_positiv_count,
+            "true_neutral_count": true_neutral_count,
+            "true_negativ_count": true_negativ_count,
+            "false_positiv_count": false_positiv_count,
+            "false_neutral_count": false_neutral_count,
+            "false_negativ_count": false_negativ_count,
+            "the_total_accuracy": total_accuracy,
+            "the_positiv_accuracy": positiv_accuracy,
+            "the_neutral_accuracy": neutral_accuracy,
+            "the_negativ_accuracy": negativ_accuracy,
+            "positiv_false": false_positiv,
+            "neutral_false": false_neutral,
+            "negativ_false": false_negativ,
+            "timestamp" : time,
+            "review_count" : all_cases,
+
         }
     )
     ############################################################################

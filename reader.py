@@ -27,7 +27,7 @@ with open('wordlist/stopwords.txt', 'r') as obj2:
 item1 = 'tripadvisor_dieburg_30.csv'
 item2 = 'frankfurter_hotels_1000.csv'
 #Open a csv to retrieve the reviews
-with open(item2) as file:
+with open(item1) as file:
 	reader = csv.DictReader(file)
 	#Get the title and content and replace the expressions
 	#Starrating [review_stars] and  ID's [_id]
