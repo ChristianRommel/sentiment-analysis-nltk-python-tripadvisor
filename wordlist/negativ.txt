@@ -1,4 +1,4 @@
-﻿schlecht
+﻿
 mies
 unzumutbar
 grauenhaft
@@ -30,3 +30,5 @@ niveaulos
 primitiv
 ätzend
 doof
+unfreundlich
+schlecht
