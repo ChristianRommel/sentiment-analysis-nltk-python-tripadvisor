@@ -23,18 +23,38 @@ def sentieval (db, col, collection, time):
     false_positiv = []
     false_negativ = []
     false_neutral = []
+    #Reviews
     true_positiv_count = 0
     true_neutral_count = 0
     true_negativ_count = 0
     false_positiv_count = 0
     false_neutral_count = 0
     false_negativ_count = 0
+    #Only Title
+    title_true_positiv_count = 0
+    title_true_neutral_count = 0
+    title_true_negativ_count = 0
+    title_false_positiv_count = 0
+    title_false_neutral_count = 0
+    title_false_negativ_count = 0
+    #Only Content
+    content_true_positiv_count = 0
+    content_true_neutral_count = 0
+    content_true_negativ_count = 0
+    content_false_positiv_count = 0
+    content_false_neutral_count = 0
+    content_false_negativ_count = 0
+
     _id = 0
     for n in range(len(collection)):
         review_score = collection[n][12]
         review_eval = collection[n][13]
         stars_eval = collection[n][14]
-        # Dictionary for all false cases
+        title_eval = collection[n][9]
+        content_eval = collection[n][11]
+        title_score = collection[n][8]
+        content_score = collection[n][10]
+        #Dictionary for all false cases
         my_dict = {
         "review_id": collection[n][0],
         "title" :collection[n][1],
@@ -44,7 +64,7 @@ def sentieval (db, col, collection, time):
         "stars_eval": collection[n][14],
         "review_eval" : review_eval,
         }
-        #Checking the cases
+        #Checking the cases for Reviews
         if review_eval == stars_eval and review_score > 0 :
             #True positiv
             true_positiv_count += 1
@@ -68,6 +88,51 @@ def sentieval (db, col, collection, time):
             false_negativ.append(my_dict)
         else:
             print "something is wrong"
+        #Title cases
+        ########################################################################
+        if title_eval == stars_eval and title_score > 0 :
+            #True positiv
+            title_true_positiv_count += 1
+        elif title_eval == stars_eval and title_score == 0 :
+            #True neutral
+            title_true_neutral_count += 1
+        elif title_eval == stars_eval and title_score < 0 :
+            #True negativ
+            title_true_negativ_count += 1
+        elif title_eval != stars_eval and title_score > 0 :
+            #False positiv
+            title_false_positiv_count += 1
+        elif title_eval != stars_eval and title_score == 0 :
+            #False neutral
+            title_false_neutral_count += 1
+
+        elif title_eval != stars_eval and title_score < 0 :
+            #False negativ
+            title_false_negativ_count += 1
+        else:
+            print "something is wrong"
+        #Content cases
+        ########################################################################
+        if content_eval == stars_eval and content_score > 0 :
+            #True positiv
+            content_true_positiv_count += 1
+        elif content_eval == stars_eval and content_score == 0 :
+            #True neutral
+            content_true_neutral_count += 1
+        elif content_eval == stars_eval and content_score < 0 :
+            #True negativ
+            content_true_negativ_count += 1
+        elif content_eval != stars_eval and content_score > 0 :
+            #False positiv
+            content_false_positiv_count += 1
+        elif content_eval != stars_eval and content_score == 0 :
+            #False neutral
+            content_false_neutral_count += 1
+        elif content_eval != stars_eval and content_score < 0 :
+            #False negativ
+            content_false_negativ_count += 1
+        else:
+            print "something is wrong"
     #Accuracy
     ############################################################################
     #All cases
@@ -86,8 +151,42 @@ def sentieval (db, col, collection, time):
     true_false_negativ = true_negativ_count + false_negativ_count
     negativ_accuracy = float(true_negativ_count) / true_false_negativ * 100
     negativ_accuracy = round(negativ_accuracy, 2)
-    #Insert the results to MongoDB
     ############################################################################
+    #Only Title
+    title_true_cases = title_true_positiv_count + title_true_neutral_count + title_true_negativ_count
+    title_total_accuracy = float(title_true_cases) / all_cases * 100
+    title_total_accuracy = round(title_total_accuracy, 2)
+    #Positiv
+    title_true_false_positiv = title_true_positiv_count + title_false_positiv_count
+    title_positiv_accuracy = float(title_true_positiv_count) / title_true_false_positiv * 100
+    title_positiv_accuracy = round(title_positiv_accuracy, 2)
+    #Neutral
+    title_true_false_neutral = title_true_neutral_count + title_false_neutral_count
+    title_neutral_accuracy = float(title_true_neutral_count) / title_true_false_neutral * 100
+    title_neutral_accuracy = round(title_neutral_accuracy, 2)
+    #Negativ
+    title_true_false_negativ = title_true_negativ_count + title_false_negativ_count
+    title_negativ_accuracy = float(title_true_negativ_count) / title_true_false_negativ * 100
+    title_negativ_accuracy = round(title_negativ_accuracy, 2)
+    ############################################################################
+    #Only Content
+    content_true_cases = content_true_positiv_count + content_true_neutral_count + content_true_negativ_count
+    content_total_accuracy = float(content_true_cases) / all_cases * 100
+    content_total_accuracy = round(content_total_accuracy, 2)
+    #Positiv
+    content_true_false_positiv = content_true_positiv_count + content_false_positiv_count
+    content_positiv_accuracy = float(content_true_positiv_count) / content_true_false_positiv * 100
+    content_positiv_accuracy = round(content_positiv_accuracy, 2)
+    #Neutral
+    content_true_false_neutral = content_true_neutral_count + content_false_neutral_count
+    content_neutral_accuracy = float(content_true_neutral_count) / content_true_false_neutral * 100
+    content_neutral_accuracy = round(content_neutral_accuracy, 2)
+    #Negativ
+    content_true_false_negativ = content_true_negativ_count + content_false_negativ_count
+    content_negativ_accuracy = float(content_true_negativ_count) / content_true_false_negativ * 100
+    content_negativ_accuracy = round(content_negativ_accuracy, 2)
+    ############################################################################
+    #Insert the results to MongoDB
     db[col].insert_one(
         {
             "true_positiv_count": true_positiv_count,
@@ -105,6 +204,28 @@ def sentieval (db, col, collection, time):
             "negativ_false": false_negativ,
             "timestamp" : time,
             "review_count" : all_cases,
+            #Title only
+            "title_true_positiv_count": title_true_positiv_count,
+            "title_true_neutral_count": title_true_neutral_count,
+            "title_true_negativ_count": title_true_negativ_count,
+            "title_false_positiv_count": title_false_positiv_count,
+            "title_false_neutral_count": title_false_neutral_count,
+            "title_false_negativ_count": title_false_negativ_count,
+            "title_the_total_accuracy": title_total_accuracy,
+            "title_the_positiv_accuracy": title_positiv_accuracy,
+            "title_the_neutral_accuracy": title_neutral_accuracy,
+            "title_the_negativ_accuracy": title_negativ_accuracy,
+            #Content only
+            "content_true_positiv_count": content_true_positiv_count,
+            "content_true_neutral_count": content_true_neutral_count,
+            "content_true_negativ_count": content_true_negativ_count,
+            "content_false_positiv_count": content_false_positiv_count,
+            "content_false_neutral_count": content_false_neutral_count,
+            "content_false_negativ_count": content_false_negativ_count,
+            "content_the_total_accuracy": content_total_accuracy,
+            "content_the_positiv_accuracy": content_positiv_accuracy,
+            "content_the_neutral_accuracy": content_neutral_accuracy,
+            "content_the_negativ_accuracy": content_negativ_accuracy,
 
         }
     )
