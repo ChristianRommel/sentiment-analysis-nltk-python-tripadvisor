@@ -59,9 +59,9 @@ def sentieval (db, col, collection, time):
         "review_id": collection[n][0],
         "title" :collection[n][1],
         "content": collection[n][2],
-        "title_eval": collection[n][11],
-        "content_eval": collection[n][13],
-        "stars_eval": collection[n][14],
+        "title_eval": title_eval,
+        "content_eval": content_eval,
+        "stars_eval": stars_eval,
         "review_eval" : review_eval,
         }
         #Checking the cases for Reviews

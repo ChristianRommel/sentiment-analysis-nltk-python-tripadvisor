@@ -18,6 +18,6 @@ from django.contrib import admin
 # Here you say in which directory the data is available
 urlpatterns = [
     url(r'', include('review.urls')),
-    # url(r'^polls/', include('polls.urls')),
+    # url(r'^review/', include('review.urls')),
     url(r'^admin/', admin.site.urls),
 ]

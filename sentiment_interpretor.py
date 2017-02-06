@@ -18,31 +18,60 @@ negator = []
 increaser = []
 results = []
 with open ('wordlist/positiv.txt', 'r') as obj1:
+    # counter = 0
     for w in obj1:
+        # counter += 1
         pos = w.lower().rstrip()
         pos = re.escape(pos)
         pos = re.compile("{}{}{}".format("\\b", pos, "[a-z]*"))
         # pos = re.compile(pos)
         poswords.append(pos)
+    #Testprint
+    #     print w
+    # print "Listing of the positiv words", counter
+    # for pos in poswords:
+    #     print pos.pattern, '\n'
 with open ('wordlist/negativ.txt', 'r') as obj2:
+    # counter = 0
     for w in obj2:
+        # counter += 1
         neg = w.lower().rstrip()
         neg = re.escape(neg)
         neg = re.compile("{}{}{}".format("\\b", neg, "[a-z]*"))
         # neg = re.compile(neg)
         negwords.append(neg)
+    #Testprint
+    #     print w
+    # print "Listing of the negativ words", counter
+    # for neg in negwords:
+    #     print neg.pattern, '\n'
 with open ('wordlist/negator.txt', 'r') as obj3:
+    # counter = 0
     for w in obj3:
+        # counter += 1
         ngtr = w.lower().rstrip()
         ngtr = re.escape(ngtr)
         ngtr = re.compile(ngtr)
         negator.append(ngtr)
+    #Testprint
+        # print w
+    # print "Listing of negators", counter
+    # for ne in negator:
+    #     print ne.pattern, '\n'
 with open ('wordlist/increaser.txt', 'r') as obj4:
+    # counter = 0
     for w in obj4:
+        # counter += 1
         inc = w.lower().rstrip()
         inc = re.escape(inc)
         inc = re.compile(inc)
         increaser.append(inc)
+    #Testprint
+    #     print w
+    # print "Listing of increasers", counter
+    # for inc in increaser:
+    #     print inc.pattern, '\n'
+
 #set score variables
 title_score = 0 # for every title
 control_title = 0 # for every token in the title
