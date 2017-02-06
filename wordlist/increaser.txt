@@ -1,4 +1,3 @@
-﻿
 sehr
 durchaus
 einfach
@@ -13,3 +12,7 @@ außerordentlich
 besonders
 echt
 wirklich
+zu
+ziemlich
+völlig
+vollkommen
