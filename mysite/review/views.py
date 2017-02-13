@@ -6,6 +6,7 @@ from models import Reviews, Evaluation
 ################################################################################
 # Examples
 ###############################################################################
+
 # def index(request):
 #     return HttpResponse("Hello, world. You're at the polls index.")
 #
@@ -20,6 +21,7 @@ from models import Reviews, Evaluation
 #     #
 #     # # Syntax rquest + Link to Template + optional context
 #     return render(request, 'review/index.html', {'employees':context})
+
 
 ################################################################################
 def index(request):
