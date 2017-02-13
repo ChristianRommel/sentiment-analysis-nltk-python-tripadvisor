@@ -6,8 +6,12 @@
 <li><a href="/evaluation">Evaluation</a></li>
 {% endblock %}
 {% block content %}
-<h1>Reviews from Tripadvisor</h1>
-
+<h1>Reviews von Tripadvisor</h1>
+<ul>
+{% for row in best_hotels %}
+  <li>{{ row.sum_id }}</li>
+{% endfor %}
+</ul>
 <!-- Filter and Pagination: future work -->
   <ul id="myTab" class="nav nav-tabs">
 

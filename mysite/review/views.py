@@ -1,4 +1,4 @@
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+# from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from el_pagination.decorators import page_templates
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -47,13 +47,28 @@ def reviews(request, template='review/reviews.html', extra_context=None):
     review_positiv = Reviews.objects(review_eval = 'positiv').order_by('+hotel_name')
     review_neutral = Reviews.objects(review_eval = 'neutral').order_by('+hotel_name')
     review_negativ = Reviews.objects(review_eval = 'negativ').order_by('+hotel_name')
+    best_hotels = Reviews.objects.aggregate(
+        {
+            "$match": {"review_eval": "positiv"}
+        },
+        {
+    	    "$group" : {"_id" : "$hotel_name", "sum" : { "$sum" : 1 } }
+        },
+        {
+            "$sort" : {"sum" : -1}
+        },
+        {
+            "$limit": 10
+        }
+    )
 
     context = {
     # 'reviews':review_list,
     #Future work
     'reviews_positiv':review_positiv,
     'reviews_neutral':review_neutral,
-    'reviews_negativ':review_negativ
+    'reviews_negativ':review_negativ,
+    'best_hotels' : best_hotels
     }
     if extra_context is not None:
         context.update(extra_context)
