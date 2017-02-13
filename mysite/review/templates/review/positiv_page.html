@@ -8,7 +8,7 @@
 <p>Du befindest dich auf Seite: {{ pages.previous }}{{ pages.current }}{{ pages.next }}</p>
 <ul>
 {% for rev in reviews_positiv %}
-  <li><b>{{ rev.id }}.Review</b></li>
+  <li><b>{{ rev.pk }}.Review</b></li>
   <li><b>Hotelname: </b>{{ rev.hotel_name }}</li>
   <li><b>Titel: </b>{{ rev.title }}</li>
   <li><b>Kommentar: </b>{{ rev.content }}</li>
