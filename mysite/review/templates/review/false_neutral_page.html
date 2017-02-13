@@ -1,0 +1,27 @@
+{% load el_pagination_tags %}
+<!-- paginate 5 neutral_false using false_neutral_page -->
+{% paginate 5 neutral_false using 'false_neutral_page' %}
+<ul class= "pagination">
+  <li>{% show_pages %}</li>
+</ul>
+<hr>
+{% get_pages  %}
+<p>Du befindest dich auf Seite: {{ pages.previous }}{{ pages.current }}{{ pages.next }}</p>
+{% for row in neutral_false %}
+<ul>
+<li><b>{{ row.review_id }}.Review</b></li>
+<li><b>Title:</b> {{ row.title }}</li>
+<li><b>Kommentar: </b>{{ row.content }}</li>
+<li><b>Titel Bewertung:</b> {{ row.title_eval }}</li>
+<li><b>Kommentar Bewertung:</b> {{ row.content_eval }}</li>
+<li><b>Review Bewertung:</b> {{ row.review_eval }}</li>
+<li><b>Sterne Bewertung:</b> {{ row.stars_eval }}</li>
+</ul>
+<hr>
+{% endfor %}
+<ul class= "pagination">
+  {% get_pages  %}
+  {% for page in pages %}
+  <li>{{ page }}</li>
+  {% endfor %}
+</ul>
