@@ -44,11 +44,11 @@ with open(item3) as file:
 			# r = re.compile(r)
 			new_title = re.sub(r, '', new_title)
 			new_content = re.sub(r, '', new_content)
-		for r in stops:
-			#patter = "{}{}{}".format("\\b", r, "\\b")
-			#r = re.compile(patter)
-			new_title = re.sub(r, '', new_title)
-			new_content = re.sub(r, '', new_content)
+		# for r in stops:
+		# 	#patter = "{}{}{}".format("\\b", r, "\\b")
+		# 	#r = re.compile(patter)
+		# 	new_title = re.sub(r, '', new_title)
+		# 	new_content = re.sub(r, '', new_content)
 		#Nltk Tokenizer
 		new_title = nltk.word_tokenize(new_title)
 		new_content = nltk.word_tokenize(new_content)

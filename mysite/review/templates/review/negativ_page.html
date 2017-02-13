@@ -1,0 +1,27 @@
+{% load el_pagination_tags %}
+{% paginate 10 reviews_negativ using 'negativ_page' %}
+<ul class= "pagination">
+  <li>{% show_pages %}</li>
+</ul>
+<hr>
+{% get_pages  %}
+<p>Du befindest dich auf Seite: {{ pages.previous }}{{ pages.current }}{{ pages.next }}</p>
+<ul>
+{% for rev in reviews_negativ %}
+  <li><b>{{ rev.id }}.Review</b></li>
+  <li><b>Hotelname: </b>{{ rev.hotel_name }}</li>
+  <li><b>Titel: </b>{{ rev.title }}</li>
+  <li><b>Kommentar: </b>{{ rev.content }}</li>
+  <li><b>Titelbewertung: </b>{{ rev.title_score }}</li>
+  <li><b>Kommentarbewertung: </b>{{ rev.content_score }}</li>
+  <li><b>Reviewbewertung: </b>{{ rev.review_eval }} Score: {{ rev.review_score }}</li>
+  <li><b>Sternebewertung: </b>{{ rev.stars_eval }} - {{ rev.review_stars }} von 5 Sternen</li>
+<hr>
+{% endfor %}
+</ul>
+<ul class= "pagination">
+  {% get_pages  %}
+  {% for page in pages %}
+  <li>{{ page }}</li>
+  {% endfor %}
+</ul>

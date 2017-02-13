@@ -51,7 +51,8 @@ with open ('wordlist/negator.txt', 'r') as obj3:
         # counter += 1
         ngtr = w.lower().rstrip()
         ngtr = re.escape(ngtr)
-        ngtr = re.compile(ngtr)
+        ngtr = re.compile("{}{}{}".format("\\b", ngtr, "\\b"))
+        # ngtr = re.compile(ngtr)
         negator.append(ngtr)
     #Testprint
         # print w
@@ -64,7 +65,8 @@ with open ('wordlist/increaser.txt', 'r') as obj4:
         # counter += 1
         inc = w.lower().rstrip()
         inc = re.escape(inc)
-        inc = re.compile(inc)
+        inc = re.compile("{}{}{}".format("\\b", inc, "\\b"))
+        # inc = re.compile(inc)
         increaser.append(inc)
     #Testprint
     #     print w
@@ -94,14 +96,14 @@ for n in range(len(ntitle)):
                             inc_match = re.search(incr, ntitle[n][ti-1])
                             if inc_match:
                                 print "Increaser at ", n, ti-1, ntitle[n][ti-1]
-                                control_title *= 2-1
+                                control_title = 1 # increase the score by +1
                                 title_score += control_title
                                 control_title = 0
                         for ne in negator:
                             ne_match = re.search(ne, ntitle[n][ti-1])
                             if ne_match:
                                 print "Negator at ", n, ti-1, ntitle[n][ti-1]
-                                control_title *= -2-1
+                                control_title = -2 # invert the score by -2
                                 title_score += control_title
                                 control_title = 0
                 else:
@@ -119,14 +121,14 @@ for n in range(len(ntitle)):
                             inc_match = re.search(incr, ntitle[n][ti-1])
                             if inc_match:
                                 print "Increaser at ", n, ti-1, ntitle[n][ti-1]
-                                control_title *= 2+1
+                                control_title = -1 # increase the score by -1
                                 title_score += control_title
                                 control_title = 0
                         for ne in negator:
                             ne_match = re.search(ne, ntitle[n][ti-1])
                             if ne_match:
                                 print "Negator at ", n, ti-1, ntitle[n][ti-1]
-                                control_title *= -2+1
+                                control_title = 2 # invert the score by +2
                                 title_score += control_title
                                 control_title = 0
                 else:
@@ -166,14 +168,14 @@ for n in range(len(ncontent)):
                             inc_match = re.search(incr, ncontent[n][ti-1])
                             if inc_match:
                                 print "Increaser at ", n, ti-1, ncontent[n][ti-1]
-                                control_content *= 2-1
+                                control_content = 1 # increase the score by +1
                                 content_score += control_content
                                 control_content = 0
                         for ne in negator:
                             ne_match = re.search(ne, ncontent[n][ti-1])
                             if ne_match:
                                 print "Negator at ", n, ti-1, ncontent[n][ti-1]
-                                control_content *= -2-1
+                                control_content = -2 # invert the score by -2
                                 content_score += control_content
                                 control_content = 0
                 else:
@@ -191,14 +193,14 @@ for n in range(len(ncontent)):
                             inc_match = re.search(incr, ncontent[n][ti-1])
                             if inc_match:
                                 print "Increaser at ", n, ti-1, ncontent[n][ti-1]
-                                control_content *= 2+1
+                                control_content = -1 # increase the score by -1
                                 content_score += control_content
                                 control_content = 0
                         for ne in negator:
                             ne_match = re.search(ne, ncontent[n][ti-1])
                             if ne_match:
                                 print "Negator at ", n, ti-1, ncontent[n][ti-1]
-                                control_content *= -2+1
+                                control_content = 2 # invert the score by +2
                                 content_score += control_content
                                 control_content = 0
                 else:

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 from mongoengine import connect
+from django.conf.global_settings import TEMPLATES
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -28,6 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'review',
     'mongoengine',
+    'el_pagination',
+    # 'endless_pagination.decorators',
 ]
 
 MIDDLEWARE = [
@@ -52,7 +56,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'mysite.urls'
-
+# TEMPLATES[0]['OPTIONS']['context_processors'].insert(0, 'django.core.context_processors.request')
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

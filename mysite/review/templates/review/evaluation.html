@@ -1,13 +1,11 @@
 {% extends "base.html" %}
-
-{% block title %}Sentiment Analysis - System Analyse{% endblock %}
+{% block title %} Sentiment Analysis - System Analyse {% endblock %}
 {% block nav %}
 <li><a href="/">Home</a></li>
 <li><a href="/reviews">Reviews</a></li>
 <li class="active"><a href="/evaluation">Evaluation</a></li>
 {% endblock %}
 {% block content %}
-
 <h1>Sentiment Analysis - System Analyse</h1>
 <ul id="myTab" class="nav nav-tabs">
   <li class="active"><a href="#review" data-toggle="tab">Review</a></li>
@@ -15,199 +13,197 @@
   <li><a href="#content" data-toggle="tab">Kommentar</a></li>
 </ul>
 {% for eva in evaluation %}
-<div>
-  <div id="myTabContent" class="tab-content">
-      <div class="tab-pane fade in active" id="review">
-        <div class="container table-responsive">
-          <h2>Auswertung für das gesamte Review</h2>
-          <table class="table table-hover table-condensed table-bordered">
-              <tr>
-                <th>Zeitstempel</th>
-                <td>{{ eva.timestamp }}</td>
-                <!-- <td></td>
-                <td></td>
-                <td></td> -->
-              </tr>
-              <tr>
-                <th>Anzahl aller Reviews</th>
-                <td>{{ eva.review_count }}</td>
-                <!-- <td></td>
-                <td></td>
-                <td></td> -->
-              </tr>
-              <tr>
-                <th>Anzahl True Positiv | False Positiv</th>
-                <td><b>True Positiv:</b> {{ eva.true_positiv_count }}</td>
-                <td><b>False Positiv:</b> {{ eva.false_positiv_count }}</td>
-                <!-- <td></td>
-                <td></td> -->
-              </tr>
-              <tr>
-                <th>Anzahl  True Neutral | False Neutral</th>
-                <td><b>True Neutral:</b>  {{ eva.true_neutral_count }}</td>
-                <td><b>False Neutral:</b> {{ eva.false_neutral_count }}</td>
-                <!-- <td></td>
-                <td></td> -->
-              </tr>
-              <tr>
-                <th>Anzahl  True Negativ | False Negativ</th>
-                <td><b>True Negativ:</b> {{ eva.true_negativ_count }}</td>
-                <td><b>False Negativ:</b> {{ eva.false_negativ_count }}</td>
-                <!-- <td></td>
-                <td></td> -->
-              </tr>
-              <tr>
-                <th>Accuracy  Total | Positiv | Neutral | Negativ</th>
-                <td><b>Accuracy Total:</b> {{ eva.the_total_accuracy }}</td>
-                <td><b>Accuracy Positiv:</b> {{ eva.the_positiv_accuracy }}</td>
-                <td><b>Accuracy Neutral:</b> {{ eva.the_neutral_accuracy }}</td>
-                <td><b>Accuracy Negativ:</b> {{ eva.the_negativ_accuracy }}</td>
-              </tr>
-          </table>
-        </div>
+
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade in active" id="review">
+      <h2>Auswertung für das gesamte Review</h2>
+      <div class="container table-responsive">
+        <table class="table table-hover table-condensed table-bordered">
+            <tr>
+              <th>Zeitstempel</th>
+              <td>{{ eva.timestamp }}</td>
+              <!-- <td></td>
+              <td></td>
+              <td></td> -->
+            </tr>
+            <tr>
+              <th>Anzahl aller Reviews</th>
+              <td>{{ eva.review_count }}</td>
+              <!-- <td></td>
+              <td></td>
+              <td></td> -->
+            </tr>
+            <tr>
+              <th>Anzahl True Positiv | False Positiv</th>
+              <td><b>True Positiv:</b> {{ eva.true_positiv_count }}</td>
+              <td><b>False Positiv:</b> {{ eva.false_positiv_count }}</td>
+              <!-- <td></td>
+              <td></td> -->
+            </tr>
+            <tr>
+              <th>Anzahl  True Neutral | False Neutral</th>
+              <td><b>True Neutral:</b>  {{ eva.true_neutral_count }}</td>
+              <td><b>False Neutral:</b> {{ eva.false_neutral_count }}</td>
+              <!-- <td></td>
+              <td></td> -->
+            </tr>
+            <tr>
+              <th>Anzahl  True Negativ | False Negativ</th>
+              <td><b>True Negativ:</b> {{ eva.true_negativ_count }}</td>
+              <td><b>False Negativ:</b> {{ eva.false_negativ_count }}</td>
+              <!-- <td></td>
+              <td></td> -->
+            </tr>
+            <tr>
+              <th>Accuracy  Total | Positiv | Neutral | Negativ</th>
+              <td><b>Accuracy Total:</b> {{ eva.the_total_accuracy }}</td>
+              <td><b>Accuracy Positiv:</b> {{ eva.the_positiv_accuracy }}</td>
+              <td><b>Accuracy Neutral:</b> {{ eva.the_neutral_accuracy }}</td>
+              <td><b>Accuracy Negativ:</b> {{ eva.the_negativ_accuracy }}</td>
+            </tr>
+        </table>
       </div>
-      <div class="tab-pane fade" id="title">
-        <div class="container table-responsive">
-          <h2>Auswertung nur mit dem Titel</h2>
-          <table class="table table-hover table-condensed table-bordered">
-              <tr>
-                <th>Zeitstempel</th>
-                <td>{{ eva.timestamp }}</td>
-                <!-- <td></td>
-                <td></td>
-                <td></td> -->
-              </tr>
-              <tr>
-                <th>Anzahl aller Reviews</th>
-                <td>{{ eva.review_count }}</td>
-                <!-- <td></td>
-                <td></td>
-                <td></td> -->
-              </tr>
-              <tr>
-                <th>Anzahl True Positiv | False Positiv</th>
-                <td><b>True Positiv:</b> {{ eva.title_true_positiv_count }}</td>
-                <td><b>False Positiv:</b> {{ eva.title_false_positiv_count }}</td>
-                <!-- <td></td>
-                <td></td> -->
-              </tr>
-              <tr>
-                <th>Anzahl  True Neutral | False Neutral</th>
-                <td><b>True Neutral:</b>  {{ eva.title_true_neutral_count }}</td>
-                <td><b>False Neutral:</b> {{ eva.title_false_neutral_count }}</td>
-                <!-- <td></td>
-                <td></td> -->
-              </tr>
-              <tr>
-                <th>Anzahl  True Negativ | False Negativ</th>
-                <td><b>True Negativ:</b> {{ eva.title_true_negativ_count }}</td>
-                <td><b>False Negativ:</b> {{ eva.title_false_negativ_count }}</td>
-                <!-- <td></td>
-                <td></td> -->
-              </tr>
-              <tr>
-                <th>Accuracy  Total | Positiv | Neutral | Negativ</th>
-                <td><b>Accuracy Total:</b> {{ eva.title_the_total_accuracy }}</td>
-                <td><b>Accuracy Positiv:</b> {{ eva.title_the_positiv_accuracy }}</td>
-                <td><b>Accuracy Neutral:</b> {{ eva.title_the_neutral_accuracy }}</td>
-                <td><b>Accuracy Negativ:</b> {{ eva.title_the_negativ_accuracy }}</td>
-              </tr>
-          </table>
-        </div>
+    </div>
+    <div class="tab-pane fade" id="title">
+      <h2>Auswertung nur mit dem Titel</h2>
+      <div class="container table-responsive">
+        <table class="table table-hover table-condensed table-bordered">
+            <tr>
+              <th>Zeitstempel</th>
+              <td>{{ eva.timestamp }}</td>
+              <!-- <td></td>
+              <td></td>
+              <td></td> -->
+            </tr>
+            <tr>
+              <th>Anzahl aller Reviews</th>
+              <td>{{ eva.review_count }}</td>
+              <!-- <td></td>
+              <td></td>
+              <td></td> -->
+            </tr>
+            <tr>
+              <th>Anzahl True Positiv | False Positiv</th>
+              <td><b>True Positiv:</b> {{ eva.title_true_positiv_count }}</td>
+              <td><b>False Positiv:</b> {{ eva.title_false_positiv_count }}</td>
+              <!-- <td></td>
+              <td></td> -->
+            </tr>
+            <tr>
+              <th>Anzahl  True Neutral | False Neutral</th>
+              <td><b>True Neutral:</b>  {{ eva.title_true_neutral_count }}</td>
+              <td><b>False Neutral:</b> {{ eva.title_false_neutral_count }}</td>
+              <!-- <td></td>
+              <td></td> -->
+            </tr>
+            <tr>
+              <th>Anzahl  True Negativ | False Negativ</th>
+              <td><b>True Negativ:</b> {{ eva.title_true_negativ_count }}</td>
+              <td><b>False Negativ:</b> {{ eva.title_false_negativ_count }}</td>
+              <!-- <td></td>
+              <td></td> -->
+            </tr>
+            <tr>
+              <th>Accuracy  Total | Positiv | Neutral | Negativ</th>
+              <td><b>Accuracy Total:</b> {{ eva.title_the_total_accuracy }}</td>
+              <td><b>Accuracy Positiv:</b> {{ eva.title_the_positiv_accuracy }}</td>
+              <td><b>Accuracy Neutral:</b> {{ eva.title_the_neutral_accuracy }}</td>
+              <td><b>Accuracy Negativ:</b> {{ eva.title_the_negativ_accuracy }}</td>
+            </tr>
+        </table>
       </div>
-      <div class="tab-pane fade" id="content">
-        <div class="container table-responsive">
-          <h2>Auswertung nur mit dem Kommentar</h2>
-          <table class="table table-hover table-condensed table-bordered">
-              <tr>
-                <th>Zeitstempel</th>
-                <td>{{ eva.timestamp }}</td>
-                <!-- <td></td>
-                <td></td>
-                <td></td> -->
-              </tr>
-              <tr>
-                <th>Anzahl aller Reviews</th>
-                <td>{{ eva.review_count }}</td>
-                <!-- <td></td>
-                <td></td>
-                <td></td> -->
-              </tr>
-              <tr>
-                <th>Anzahl True Positiv | False Positiv</th>
-                <td><b>True Positiv:</b> {{ eva.content_true_positiv_count }}</td>
-                <td><b>False Positiv:</b> {{ eva.content_false_positiv_count }}</td>
-                <!-- <td></td>
-                <td></td> -->
-              </tr>
-              <tr>
-                <th>Anzahl  True Neutral | False Neutral</th>
-                <td><b>True Neutral:</b>  {{ eva.content_true_neutral_count }}</td>
-                <td><b>False Neutral:</b> {{ eva.content_false_neutral_count }}</td>
-                <!-- <td></td>
-                <td></td> -->
-              </tr>
-              <tr>
-                <th>Anzahl  True Negativ | False Negativ</th>
-                <td><b>True Negativ:</b> {{ eva.content_true_negativ_count }}</td>
-                <td><b>False Negativ:</b> {{ eva.content_false_negativ_count }}</td>
-                <!-- <td></td>
-                <td></td> -->
-              </tr>
-              <tr>
-                <th>Accuracy  Total | Positiv | Neutral | Negativ</th>
-                <td><b>Accuracy Total:</b> {{ eva.content_the_total_accuracy }}</td>
-                <td><b>Accuracy Positiv:</b> {{ eva.content_the_positiv_accuracy }}</td>
-                <td><b>Accuracy Neutral:</b> {{ eva.content_the_neutral_accuracy }}</td>
-                <td><b>Accuracy Negativ:</b> {{ eva.content_the_negativ_accuracy }}</td>
-              </tr>
-          </table>
-        </div>
+    </div>
+    <div class="tab-pane fade" id="content">
+      <h2>Auswertung nur mit dem Kommentar</h2>
+      <div class="container table-responsive">
+        <table class="table table-hover table-condensed table-bordered">
+            <tr>
+              <th>Zeitstempel</th>
+              <td>{{ eva.timestamp }}</td>
+              <!-- <td></td>
+              <td></td>
+              <td></td> -->
+            </tr>
+            <tr>
+              <th>Anzahl aller Reviews</th>
+              <td>{{ eva.review_count }}</td>
+              <!-- <td></td>
+              <td></td>
+              <td></td> -->
+            </tr>
+            <tr>
+              <th>Anzahl True Positiv | False Positiv</th>
+              <td><b>True Positiv:</b> {{ eva.content_true_positiv_count }}</td>
+              <td><b>False Positiv:</b> {{ eva.content_false_positiv_count }}</td>
+              <!-- <td></td>
+              <td></td> -->
+            </tr>
+            <tr>
+              <th>Anzahl  True Neutral | False Neutral</th>
+              <td><b>True Neutral:</b>  {{ eva.content_true_neutral_count }}</td>
+              <td><b>False Neutral:</b> {{ eva.content_false_neutral_count }}</td>
+              <!-- <td></td>
+              <td></td> -->
+            </tr>
+            <tr>
+              <th>Anzahl  True Negativ | False Negativ</th>
+              <td><b>True Negativ:</b> {{ eva.content_true_negativ_count }}</td>
+              <td><b>False Negativ:</b> {{ eva.content_false_negativ_count }}</td>
+              <!-- <td></td>
+              <td></td> -->
+            </tr>
+            <tr>
+              <th>Accuracy  Total | Positiv | Neutral | Negativ</th>
+              <td><b>Accuracy Total:</b> {{ eva.content_the_total_accuracy }}</td>
+              <td><b>Accuracy Positiv:</b> {{ eva.content_the_positiv_accuracy }}</td>
+              <td><b>Accuracy Neutral:</b> {{ eva.content_the_neutral_accuracy }}</td>
+              <td><b>Accuracy Negativ:</b> {{ eva.content_the_negativ_accuracy }}</td>
+            </tr>
+        </table>
       </div>
-  </div>
+    </div>
 </div>
-<!-- End of Tabs !-->
-<div>
-  <h2>Reviews: False Cases</h2>
-  <h2>False Positiv</h2>
-  {% for row in eva.positiv_false %}
-  <ul>
-  <li><b>Review ID:</b> {{ row.review_id }}</li>
-  <li><b>Title:</b> {{ row.title }}</li>
-  <li><b>Kommentar:</b> {{ row.content }}</li>
-  <li><b>Titel Bewertung:</b> {{ row.title_eval }}</li>
-  <li><b>Kommentar Bewertung:</b> {{ row.content_eval }}</li>
-  <li><b>Review Bewertung:</b> {{ row.review_eval }}</li>
-  <li><b>Sterne Bewertung:</b> {{ row.stars_eval }}</li>
-  </ul>
-  <hr>
-  {% endfor %}
-  <h2>False Neutral</h2>
-  {% for row in eva.neutral_false %}
-  <ul>
-  <li><b>Review ID:</b> {{ row.review_id }}</li>
-  <li><b>Title:</b> {{ row.title }}</li>
-  <li><b>Kommentar: </b>{{ row.content }}</li>
-  <li><b>Titel Bewertung:</b> {{ row.title_eval }}</li>
-  <li><b>Kommentar Bewertung:</b> {{ row.content_eval }}</li>
-  <li><b>Review Bewertung:</b> {{ row.review_eval }}</li>
-  <li><b>Sterne Bewertung:</b> {{ row.stars_eval }}</li>
-  </ul>
-  <hr>
-  {% endfor %}
-  <h2>False Negativ</h2>
-  {% for row in eva.negativ_false %}
-  <ul>
-  <li><b>Review ID:</b> {{ row.review_id }}</li>
-  <li><b>Title:</b> {{ row.title }}</li>
-  <li><b>Kommentar:</b> {{ row.content }}</li>
-  <li><b>Titel Bewertung:</b> {{ row.title_eval }}</li>
-  <li><b>Kommentar Bewertung:</b> {{ row.content_eval }}</li>
-  <li><b>Review Bewertung:</b> {{ row.review_eval }}</li>
-  <li><b>Sterne Bewertung:</b> {{ row.stars_eval }}</li>
-  </ul>
-  <hr>
-  {% endfor %}
 {% endfor %}
+<!-- End of Tabs !-->
+<!-- ########################### -->
+<!-- Beginn of new Tabs -->
+<h2>Reviews: Falsche Annahmen</h2>
+<ul id="myTab2" class="nav nav-tabs">
+  <li class="active"><a href="#false_positiv" data-toggle="tab">Falsch Positiv</a></li>
+  <li><a href="#false_neutral" data-toggle="tab">Falsch Neutral</a></li>
+  <li><a href="#false_negativ" data-toggle="tab">Falsch Negativ</a></li>
+</ul>
+<div id="myTab2Content" class="tab-content">
+    <div class="tab-pane fade in active" id="false_positiv">
+      <div class="container table-responsive">
+        <h2>Falsch Positiv</h2>
+        <div class="endless_page_template">
+          {% include "review/false_positiv_page.html" %}
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="false_neutral">
+      <div class="container table-responsive">
+        <h2>False Neutral</h2>
+        <div class="endless_page_template">
+          {% include "review/false_neutral_page.html" %}
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="false_negativ">
+      <div class="container table-responsive">
+        <h2>False Negativ</h2>
+        <div class="endless_page_template">
+          {% include "review/false_negativ_page.html" %}
+        </div>
+      </div>
+    </div>
 </div>
+  {% block js %}
+      {{ block.super }}
+      {% load staticfiles %}
+      <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+      <script src="{% static 'js/el-pagination.js' %}"></script>
+      <!-- <script>$.endlessPaginate();</script> -->
+  {% endblock %}
 {% endblock %}

@@ -1,8 +1,9 @@
 {% load staticfiles %}
+{% load el_pagination_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>{% block title %} Bootstrap Example {% endblock %}</title>
+  <title>{% block title %} Home {% endblock %}</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -82,7 +83,7 @@
     <div class="col-sm-8 text-left">
       {% block content %}{% endblock %}
     </div>
-    <div class="col-sm-2 sidenav">
+    <!-- <div class="col-sm-2 sidenav">
       {% block sidebar2 %}
       <div class="well">
         <p>ADS</p>
@@ -91,13 +92,11 @@
         <p>ADS</p>
       </div>
       {% endblock %}
-    </div>
+    </div> -->
   </div>
 </div>
-
 <footer class="container-fluid text-center">
-  <p>Christian Rommel and Torun Ünver</p>
+  <p>&copy; 2016-2017 - Christian Rommel and Torun Ünver</p>
 </footer>
-
 </body>
 </html>

@@ -1,11 +1,15 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from el_pagination.decorators import page_templates
 from django.shortcuts import render
 from django.http import HttpResponse
 from models import Reviews, Evaluation
+################################################################################
+# Examples
+###############################################################################
 
 # def index(request):
 #     return HttpResponse("Hello, world. You're at the polls index.")
-
+#
 # def index(request):
 #     # employee = Employee.objects.create(
 #     #     email="pedro.kong@company.com",
@@ -17,70 +21,66 @@ from models import Reviews, Evaluation
 #     #
 #     # # Syntax rquest + Link to Template + optional context
 #     return render(request, 'review/index.html', {'employees':context})
+
+
 ################################################################################
 def index(request):
-    return render(request, 'review/index.html', {})
-
-def reviews(request):
-    # review_list = Reviews.objects.all()
-    review_list = Reviews.objects.all().order_by('+hotel_name')
-    paginator = Paginator(review_list, 10) # Show 10 contacts per page
-    page = request.GET.get('page')
-    try:
-        review_list = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        review_list = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        review_list = paginator.page(paginator.num_pages)
-#     #### Filter: Future work ####
-#     review_positiv = Reviews.objects(review_eval = 'positiv').order_by('+hotel_name')
-#     paginator = Paginator(review_positiv, 10) # Show 10 contacts per page
-#     page = request.GET.get('page1')
-#     try:
-#         review_positiv = paginator.page(page)
-#     except PageNotAnInteger:
-#         # If page is not an integer, deliver first page.
-#         review_positiv = paginator.page(1)
-#     except EmptyPage:
-#         # If page is out of range (e.g. 9999), deliver last page of results.
-#         review_positiv = paginator.page(paginator.num_pages)
-# ################################################################################
-#     review_neutral = Reviews.objects(review_eval = 'neutral').order_by('+hotel_name')
-#     paginator = Paginator(review_neutral, 10) # Show 10 contacts per page
-#     page = request.GET.get('page2')
-#     try:
-#         review_neutral = paginator.page(page)
-#     except PageNotAnInteger:
-#         # If page is not an integer, deliver first page.
-#         review_neutral = paginator.page(1)
-#     except EmptyPage:
-#         # If page is out of range (e.g. 9999), deliver last page of results.
-#         review_neutral = paginator.page(paginator.num_pages)
-# ################################################################################
-#     review_negativ = Reviews.objects(review_eval = 'negativ').order_by('+hotel_name')
-#     paginator = Paginator(review_negativ, 10) # Show 10 contacts per page
-#     page = request.GET.get('page3')
-#     try:
-#         review_negativ = paginator.page(page)
-#     except PageNotAnInteger:
-#         # If page is not an integer, deliver first page.
-#         review_negativ = paginator.page(1)
-#     except EmptyPage:
-#         # If page is out of range (e.g. 9999), deliver last page of results.
-#         review_negativ = paginator.page(paginator.num_pages)
     context = {
-    'reviews':review_list,
-    #Future work
-    # 'reviews_positiv':review_positiv,
-    # 'reviews_neutral':review_neutral,
-    # 'reviews_negativ':review_negativ
+
     }
+    return render(request, 'review/index.html', context)
+
+
+
+################################################################################
+# Pagination Templates for Reviews
+################################################################################
+@page_templates({
+    'review/positiv_page.html': 'positiv_page',
+    'review/neutral_page.html': 'neutral_page',
+    'review/negativ_page.html': 'negativ_page'
+})
+################################################################################
+#     #### Filter: Future work --> Positiv | Neutral | Negativ ####
+################################################################################
+def reviews(request, template='review/reviews.html', extra_context=None):
+    review_positiv = Reviews.objects(review_eval = 'positiv').order_by('+hotel_name')
+    review_neutral = Reviews.objects(review_eval = 'neutral').order_by('+hotel_name')
+    review_negativ = Reviews.objects(review_eval = 'negativ').order_by('+hotel_name')
+
+    context = {
+    # 'reviews':review_list,
+    #Future work
+    'reviews_positiv':review_positiv,
+    'reviews_neutral':review_neutral,
+    'reviews_negativ':review_negativ
+    }
+    if extra_context is not None:
+        context.update(extra_context)
 
     return render(request, 'review/reviews.html', context )
+################################################################################
+# Pagination Templates for Evaluation
+################################################################################
+@page_templates({
+    'review/false_positiv_page.html': 'false_positiv_page',
+    'review/false_neutral_page.html': 'false_neutral_page',
+    'review/false_negativ_page.html': 'false_negativ_page'
+})
+def evaluation(request, template='review/evaluation.html', extra_context=None):
+    evaluation = Evaluation.objects.all()
+    for eval in evaluation:
+        positiv_false = eval.positiv_false
+        neutral_false = eval.neutral_false
+        negativ_false = eval.negativ_false
 
-def evaluation(request):
-    context = Evaluation.objects.all()
+    context = {
+    'evaluation': evaluation,
+    'positiv_false' : positiv_false,
+    'neutral_false' : neutral_false,
+    'negativ_false' : negativ_false
+    }
+    if extra_context is not None:
+        context.update(extra_context)
     # Syntax rquest + Link to Template + optional context
-    return render(request, 'review/evaluation.html', {'evaluation':context})
+    return render(request, 'review/evaluation.html', context)

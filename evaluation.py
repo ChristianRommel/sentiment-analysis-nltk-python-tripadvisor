@@ -135,7 +135,7 @@ def sentieval (db, col, collection, time):
             print "something is wrong"
     #Accuracy
     ############################################################################
-    #All cases
+    #Title + Content
     true_cases = true_positiv_count + true_neutral_count + true_negativ_count
     total_accuracy = float(true_cases) / all_cases * 100
     total_accuracy = round(total_accuracy, 2)
