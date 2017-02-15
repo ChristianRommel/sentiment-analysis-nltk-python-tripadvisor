@@ -1,9 +1,40 @@
 {% extends "base.html" %}
-
-{% block title %}My amazing blog{% endblock %}
+{% load staticfiles %}
+{% block title %}Sentiment Aanalysis{% endblock %}
 
 {% block content %}
 
-<h2>Index Home</h2>
-
+<h1>Sentiment Aanalysis on Tripadvisor with Python & NLTK</h1>
+<div>
+  <p>
+  Export tripadvisor hotel data to mongodb with scrapy,
+  remove stopwords, tokenize reviews with nltk and segmenting
+  reviews for a sentiment analysis process and dashboard.
+  </p><p>
+  In this project we have the focus on german (Deutsch) language.
+  We want to analyse the sentimentals of hotel reviews in Germany.<br>
+  </p>
+  <h2>Python - Scrapy Crawler</h2>
+  <p>
+  At first you can get your needed raw data with python and scrapy
+  framework from tripadvisor with this repository: <br>
+  https://github.com/monkeylearn/hotel-review-analysis
+  </p><p>
+  We changed the spider request and did a item change.
+  For a more specific request you must put this command
+  into your terminal. <em>Example:</em>
+  </p><p>
+  <kbd>scrapy crawl tripadvisor_more -a start_url="https://www.tripadvisor.de/Hotels-g2049630-Dieburg_Hesse-Hotels.html" -o dieburger-hotels.csv </kbd>
+  <hr>
+  <h2>Other useful packages</h2>
+  <ul>
+    <li><b>NLTK</b></li>
+    <li><b>Pymongo</b></li>
+    <li><b>Mongoengine</b></li>
+  </ul>
+  <hr>
+  <div class ="text-center">
+    <img src="{% static 'img/overview-sentiment-analysis.jpg' %}" style="width:80%;height:auto;">
+  </div>
+</div>
 {% endblock %}

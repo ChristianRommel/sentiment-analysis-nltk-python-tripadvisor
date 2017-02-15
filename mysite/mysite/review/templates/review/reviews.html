@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Reviews{% endblock %}
+{% block nav %}
+<li><a href="/">Home</a></li>
+<li  class="active"><a href="/reviews">Reviews</a></li>
+<li><a href="/evaluation">Evaluation</a></li>
+{% endblock %}
+{% block content %}
+<h1>Reviews von Tripadvisor</h1>
+<ul>
+{% for row in best_hotels %}
+  <li>{{ row.sum_id }}</li>
+{% endfor %}
+</ul>
+<!-- Filter and Pagination: future work -->
+  <ul id="myTab" class="nav nav-tabs">
+
+    <li class="active"><a href='#positiv' data-toggle="tab" data-target ='#positiv'>Positiv</a></li>
+    <li><a href="#neutral" data-toggle="tab" data-target ='#neutral'>Neutral</a></li>
+    <li><a href="#negativ" data-toggle="tab" data-target ='#negativ'>Negativ</a></li>
+  </ul>
+  <div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade in active" id="positiv">
+      <h2>Positive Reviews</h2>
+      <div class="endless_page_template">
+        {% include "review/positiv_page.html" %}
+      </div>
+    </div>
+    <div class="tab-pane fade" id="neutral">
+      <h2>Neutrale Reviews</h2>
+      <div class="endless_page_template">
+        {% include "review/neutral_page.html" %}
+      </div>
+    </div>
+    <div class="tab-pane fade" id="negativ">
+      <h2>Negative Reviews</h2>
+      <div class="endless_page_template">
+        {% include "review/negativ_page.html" %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

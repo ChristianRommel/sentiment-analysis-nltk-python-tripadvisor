@@ -1,12 +1,12 @@
 {% load el_pagination_tags %}
-{% paginate 5 negativ_false using 'false_negativ_page' %}
+{% paginate 5 positiv_false using 'false_positiv_page' %}
 <ul class= "pagination">
   <li>{% show_pages %}</li>
 </ul>
 <hr>
 {% get_pages  %}
 <p>Du befindest dich auf Seite: {{ pages.previous }}{{ pages.current }}{{ pages.next }}</p>
-{% for row in negativ_false %}
+{% for row in positiv_false %}
 <ul>
 <li><b>{{ row.review_id }}.Review</b></li>
 <li><b>Title:</b> {{ row.title }}</li>

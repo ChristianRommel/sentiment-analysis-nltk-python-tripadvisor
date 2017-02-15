@@ -7,11 +7,53 @@
 {% endblock %}
 {% block content %}
 <h1>Reviews von Tripadvisor</h1>
-<ul>
-{% for row in best_hotels %}
-  <li>{{ row.sum_id }}</li>
-{% endfor %}
-</ul>
+<div class="container">
+  <h2>Die 10 Hotels mit den meisten positiven Bewertungen</h2>
+  <div class="table-responsive">
+  <table class="table table-hover table-condensed">
+    <thead>
+      <tr>
+        <th>Hotel</th>
+        <th class="text-center">Anzahl der Bewertungen</th>
+        <th class="text-center">Durchschnittliche Sternebewertung</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in best_hotels %}
+      <tr>
+        <td>{{ row.name }}</a></td>
+        <td class="text-center">{{ row.sum }}</td>
+        <td class="text-center">{{ row.avgstars | floatformat:"2" }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+<div class="container">
+  <h2>Die 10 Hotels mit den meisten negativen Bewertungen</h2>
+  <div class="table-responsive">
+  <table class="table table-hover table-condensed">
+    <thead>
+      <tr>
+        <th>Hotel</th>
+        <th class="text-center">Anzahl der Bewertungen</th>
+        <th class="text-center">Durchschnittliche Sternebewertung</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in worst_hotels %}
+      <tr>
+        <td>{{ row.name }}</td>
+        <td class="text-center">{{ row.sum }}</td>
+        <td class="text-center">{{ row.avgstars | floatformat:"2" }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+
 <!-- Filter and Pagination: future work -->
   <ul id="myTab" class="nav nav-tabs">
 

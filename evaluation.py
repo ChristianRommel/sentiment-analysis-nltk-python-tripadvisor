@@ -7,14 +7,16 @@
 # 'city': i[4],
 # 'hotel_name': i[5],
 # 'review_stars': i[6],
-# 'helpful_reader': i[7],
-# 'title_score': i[8],
-# 'title_eval': i[9],
-# 'content_score': i[10],
-# 'content_eval' : i[11],
-# 'review_score': i[12],
-# 'review_eval' : i[13],
-# 'stars_eval' : i[14]
+# 'hotel_review_stars': i[7],
+# 'hotel_url': i[8],
+# 'helpful_reader': i[9],
+# 'title_score': i[10],
+# 'title_eval': i[11],
+# 'content_score': i[12],
+# 'content_eval' : i[13],
+# 'review_score': i[14],
+# 'review_eval' : i[15],
+# 'stars_eval' : i[16]
 ################################################################################
 from mongodb_connect import db
 import math
@@ -47,13 +49,13 @@ def sentieval (db, col, collection, time):
 
     _id = 0
     for n in range(len(collection)):
-        review_score = collection[n][12]
-        review_eval = collection[n][13]
-        stars_eval = collection[n][14]
-        title_eval = collection[n][9]
-        content_eval = collection[n][11]
-        title_score = collection[n][8]
-        content_score = collection[n][10]
+        review_score = collection[n][14]
+        review_eval = collection[n][15]
+        stars_eval = collection[n][16]
+        title_eval = collection[n][11]
+        content_eval = collection[n][13]
+        title_score = collection[n][10]
+        content_score = collection[n][12]
         #Dictionary for all false cases
         my_dict = {
         "review_id": collection[n][0],

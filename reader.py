@@ -16,13 +16,13 @@ with open('wordlist/punctuation.txt', 'r') as obj1:
 		punctuations = re.escape(punctuations)
 		punctuations = re.compile(punctuations)
 		punct.append(punctuations)
-with open('wordlist/stopwords.txt', 'r') as obj2:
-	for s in obj2:
-		#Lowercase words and strip newlines ans whitespaces
-		stopwords = s.lower().rstrip()
-		stopwords = re.escape(stopwords)
-		stopwords = re.compile("{}{}{}".format("\\b", stopwords, "\\b"))
-		stops.append(stopwords)
+# with open('wordlist/stopwords.txt', 'r') as obj2:
+# 	for s in obj2:
+# 		#Lowercase words and strip newlines ans whitespaces
+# 		stopwords = s.lower().rstrip()
+# 		stopwords = re.escape(stopwords)
+# 		stopwords = re.compile("{}{}{}".format("\\b", stopwords, "\\b"))
+# 		stops.append(stopwords)
 #Items for CSV Reader
 item1 = 'tripadvisor_dieburg_30.csv'
 item2 = 'frankfurter_hotels_1000.csv'
@@ -35,6 +35,7 @@ with open(item3) as file:
 	for row in reader:
 		#Starrating
 		review_stars = row['review_stars'].split("von")[0]
+		hotel_review_stars = row['hotel_review_stars'].split("von")[0]
 		#ID Handling
 		_id += 1
 		#Regular Expression Handling
@@ -64,5 +65,7 @@ with open(item3) as file:
 			row['city'],
 			row['hotel_name'],
 			float(review_stars),
+			float(hotel_review_stars),
+			row['hotel_url'],
 			row['helpful_reader']
 		])

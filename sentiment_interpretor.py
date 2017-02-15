@@ -89,7 +89,7 @@ for n in range(len(ntitle)):
                 if match:
                     print match.group(), 'positiv at', n, ti
                     # print ntitle[n][ti]
-                    control_title += 1
+                    control_title = +1
                     title_score += control_title
                     if ti != 0:
                         for incr in increaser:
@@ -114,7 +114,7 @@ for n in range(len(ntitle)):
                 if match:
                     print match.group(), 'negativ at', n, ti
                     # print ntitle[n][ti]
-                    control_title -= 1
+                    control_title = -1
                     title_score += control_title
                     if ti != 0:
                         for incr in increaser:
@@ -142,9 +142,11 @@ for n in range(len(ntitle)):
             title_eval = "negativ"
         else:
             print "No title_score is given!"
+        # Get the whole title
+        title_string = ' '.join(str(e) for e in ntitle[n])
         # Resume
         print "Sentiment Value", title_score
-        print ntitle[n], len(ntitle[n]), "Tokens"
+        print "[",title_string, "]", len(ntitle[n]), "Tokens"
         print title_eval
         print "{}{}{}{}".format(time, " - ", n, ".title was analysed\n\n")
         #Insert to collection
@@ -161,7 +163,7 @@ for n in range(len(ncontent)):
                 if match:
                     print match.group(), 'positiv at', n, ti
                     # print ncontent[n][ti]
-                    control_content += 1
+                    control_content = 1
                     content_score += control_content
                     if ti != 0:
                         for incr in increaser:
@@ -186,7 +188,7 @@ for n in range(len(ncontent)):
                 if match:
                     print match.group(), 'negativ at', n, ti
                     # print ncontent[n][ti]
-                    control_content -= 1
+                    control_content = -1
                     content_score += control_content
                     if ti != 0:
                         for incr in increaser:
@@ -214,9 +216,11 @@ for n in range(len(ncontent)):
             content_eval = "negativ"
         else:
             print "No content_score is given!"
+        # Get the whole title
+        content_string = ' '.join(str(e) for e in ncontent[n])
         # Resume
         print "Sentiment Value", content_score
-        print ncontent[n], len(ncontent[n]), "Tokens"
+        print "[", content_string, "]", len(ncontent[n]), "Tokens"
         print content_eval
         print "{}{}{}{}".format(time, " - ", n, ".content was analysed\n\n")
         #Insert to collection
@@ -225,8 +229,8 @@ for n in range(len(ncontent)):
         content_score = 0
 ### Review Evaluation Stars, Title and Content ###
 for n in range(len(collection)):
-    title_score = collection[n][8]
-    content_score = collection[n][10]
+    title_score = collection[n][10]
+    content_score = collection[n][12]
     review_stars = collection[n][6]
     #Evaluation
     review_score = title_score + content_score
@@ -275,14 +279,16 @@ db[col].insert_many(
         'city': i[4],
         'hotel_name': i[5],
         'review_stars': i[6],
-        'helpful_reader': i[7],
-        'title_score': i[8],
-        'title_eval': i[9],
-        'content_score': i[10],
-        'content_eval' : i[11],
-        'review_score': i[12],
-        'review_eval' : i[13],
-        'stars_eval' : i[14]
+        'hotel_review_stars': i[7],
+        'hotel_url': i[8],
+        'helpful_reader': i[9],
+        'title_score': i[10],
+        'title_eval': i[11],
+        'content_score': i[12],
+        'content_eval' : i[13],
+        'review_score': i[14],
+        'review_eval' : i[15],
+        'stars_eval' : i[16]
     }
     for i in collection
 )

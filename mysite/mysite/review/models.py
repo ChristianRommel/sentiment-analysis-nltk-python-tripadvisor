@@ -36,8 +36,6 @@ class Reviews(Document):
     content = StringField()
     title_eval = StringField()
     review_eval = StringField()
-    hotel_review_stars = StringField()
-    hotel_url = StringField()
 
 class Evaluation(Document):
     positiv_false = ListField()
